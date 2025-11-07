@@ -1,4 +1,4 @@
-// config/cloudinary.js
+
 const { v2: cloudinary } = require('cloudinary');
 const dotenv = require('dotenv');
 dotenv.config();
