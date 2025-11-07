@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+  <title>My Drive</title>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col items-center">
+
+  <header class="w-full bg-blue-700 text-white p-4 flex justify-between items-center shadow-md">
+    <h1 class="text-2xl font-bold">My Drive</h1>
+    <a href="/user/login" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm">Logout</a>
+  </header>
+
+  <main class="mt-8 w-full max-w-2xl bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
+    <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Upload File</h2>
+
+    <form id="uploadForm" action="/upload-file" method="post" enctype="multipart/form-data">
+      <input type="file" name="file" id="fileInput"
+        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 p-2 mb-4" required />
+      <button type="submit"
+        class="w-full text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5">
+        Upload
+      </button>
+    </form>
+
+    <div id="uploadStatus" class="mt-4 text-center text-gray-700 dark:text-gray-300"></div>
+  </main>
+
+  <script>
+    document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const res = await fetch('/upload-file', { method: 'POST', body: formData });
+      const data = await res.json();
+      document.getElementById('uploadStatus').innerHTML =
+        data.file ? `<p>✅ Uploaded: <a href="${data.file.url}" target="_blank" class="text-blue-500 underline">${data.file.originalname}</a></p>`
+                  : `<p class="text-red-500">❌ ${data.message}</p>`;
+    });
+  </script>
+
+</body>
+</html>
