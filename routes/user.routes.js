@@ -1,4 +1,4 @@
-// routes/user.routes.js
+
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
