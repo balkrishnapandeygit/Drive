@@ -1,4 +1,4 @@
-// routes/index.routes.js
+
 const express = require('express');
 const upload = require('../config/multer.config');
 const router = express.Router();
